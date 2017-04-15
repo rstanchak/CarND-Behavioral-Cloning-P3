@@ -78,6 +78,17 @@ For details about how I created the training data, see the next section.
 
 ####1. Solution Design Approach
 
+Step 1. linear regression using provided data 
+loss: 3340.0979 - val_loss: 1675.4634
+Step 2. same as (1) with images flipped left-right
+loss: 369119.3010 - val_loss: 106462.8109
+Step 3. normalize input
+loss: 2.9456 - val_loss: 1.6964
+Step 4. multiple cameras with adjustment factor of 0.12 (stddev of data)
+loss: 4.0997 - val_loss: 3.1326
+
+
+
 The overall strategy for deriving a model architecture was to ...
 
 My first step was to use a convolution neural network model similar to the ... I thought this model might be appropriate because ...
