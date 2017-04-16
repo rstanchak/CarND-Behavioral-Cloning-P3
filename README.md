@@ -86,6 +86,9 @@ Step 3. normalize input
 loss: 2.9456 - val_loss: 1.6964
 Step 4. multiple cameras with adjustment factor of 0.12 (stddev of data)
 loss: 4.0997 - val_loss: 3.1326
+Step 5. crop top by 64 px and bottom by 22 px
+loss: 0.4917 - val_loss: 0.3236
+
 
 
 

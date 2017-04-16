@@ -4,7 +4,7 @@ import os
 import cv2
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Flatten, Dense, Lambda
+from keras.layers import Flatten, Dense, Lambda, Cropping2D
 from sklearn.model_selection import train_test_split
 from random import shuffle
 import sklearn
@@ -76,8 +76,10 @@ image = cv2.imread(os.path.sep.join([datadir, samples[0][0]]))
 input_shape = image.shape
 del image
 
+crop=((64,22),(0,0))
 model = Sequential()
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=input_shape))
+model.add(Cropping2D(cropping=crop, input_shape=input_shape))
 model.add(Flatten(input_shape=input_shape))
 model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
