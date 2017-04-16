@@ -88,8 +88,15 @@ Step 4. multiple cameras with adjustment factor of 0.12 (stddev of data)
 loss: 4.0997 - val_loss: 3.1326
 Step 5. crop top by 64 px and bottom by 22 px
 loss: 0.4917 - val_loss: 0.3236
-
-
+Step 6. add 5x1 conv layer + relu
+loss: 0.0116 - val_loss: 0.0125
+Step 7. add 4-node hidden layer + relu
+loss: 0.0263 - val_loss: 0.0261
+why did this increase loss? 
+Step 8. remove hidden layer + add 1x5 conv layer + relu
+loss: 0.0101 - val_loss: 0.0108
+Setp 9. Add 128-node hidden layer + relu
+loss: 0.0103 - val_loss: 0.0107
 
 
 The overall strategy for deriving a model architecture was to ...
