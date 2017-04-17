@@ -95,9 +95,14 @@ loss: 0.0263 - val_loss: 0.0261
 why did this increase loss? 
 Step 8. remove hidden layer + add 1x5 conv layer + relu
 loss: 0.0101 - val_loss: 0.0108
-Setp 9. Add 128-node hidden layer + relu
+Step 9. Add 128-node hidden layer + relu + p=0.25 dropout
 loss: 0.0103 - val_loss: 0.0107
+Step 10. Preprocessing as above, with model-all-cnn-c-simple
+loss: 0.0088 - val_loss: 0.0090
+Step 11. Lenet
 
+Step 12. Nvidia paper
+loss: 0.0098 - val_loss: 0.0091
 
 The overall strategy for deriving a model architecture was to ...
 
