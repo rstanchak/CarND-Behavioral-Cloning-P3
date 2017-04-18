@@ -1,6 +1,7 @@
 # Behavioral Cloning Project
 ## Writeup 
 Author: Roman Stanchak (rstanchak@gmail.com)
+
 Date: 2017-Apr-17
 
 The goals / steps of this project are the following:
@@ -32,7 +33,8 @@ The goals / steps of this project are the following:
 My project includes the following files:
 * model.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
-* model-09.h5 containing a trained convolution neural network 
+* model.h5 containing a trained convolution neural network 
+* video.mp4 containing a video of the final model driving around track 1
 * README.md containing a summary of the results
 
 #### 2. Submission includes functional code

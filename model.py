@@ -4,7 +4,12 @@ import os
 import cv2
 import numpy as np
 from keras.models import Sequential
-from keras.layers import Flatten, Dropout, Dense, Lambda, Cropping2D, Convolution2D
+from keras.layers import Flatten, \
+        Dropout, \
+        Dense, \
+        Lambda, \
+        Cropping2D, \
+        Convolution2D
 from sklearn.model_selection import train_test_split
 from random import shuffle
 import sklearn
@@ -12,6 +17,7 @@ import sklearn
 
 assert(len(sys.argv) > 1)
 
+# load driving log
 driving_log = sys.argv[1]
 datadir = os.path.dirname(driving_log)
 
@@ -26,9 +32,11 @@ measurements = []
 steering_adjustment = 0.12
 
 
+# flip the image and steering angle
 def lrflip(im, x):
     return cv2.flip(im, 1), -x
 
+# construct list of data samples
 for line in lines[1:]:  # skip header line
     measurement = float(line[3])
     # center, mirrored
@@ -44,6 +52,8 @@ for line in lines[1:]:  # skip header line
 train_samples, validation_samples = train_test_split(samples, test_size=0.2)
 
 
+# training set does not fit in RAM.  This generator constructs a small batch of
+# samples by loading the images and associated steering angles
 def generator(samples, dirname, batch_size=32):
     num_samples = len(samples)
     while 1:  # Loop forever so the generator never terminates
@@ -72,20 +82,34 @@ def generator(samples, dirname, batch_size=32):
 train_generator = generator(train_samples, datadir, batch_size=32)
 validation_generator = generator(validation_samples, datadir, batch_size=32)
 
+# get image shape
 image = cv2.imread(os.path.sep.join([datadir, samples[0][0]]))
 input_shape = image.shape
 del image
 
-crop=((64,22),(0,0))
+# manually defined crop area
+crop = ((64, 22), (0, 0))
+
+# the architecture
 model = Sequential()
+# normalize and center data
 model.add(Lambda(lambda x: x/255.0 - 0.5, input_shape=input_shape))
+# crop everything above the horizon
 model.add(Cropping2D(cropping=crop, input_shape=input_shape))
-model.add(Convolution2D(8,5,1,subsample=(2,1),activation='relu'))
-model.add(Convolution2D(8,1,5,subsample=(1,2),activation='relu'))
+
+# conv layer(s)
+
+# 8 feature 5x1 conv layer with 2x1 subsampling + relu activation
+model.add(Convolution2D(8, 5, 1, subsample=(2, 1), activation='relu'))
+# 8 feature 1x5 conv layer with 1x2 subsampling + relu activation
+model.add(Convolution2D(8, 1, 5, subsample=(1, 2), activation='relu'))
+
+# fully connected layer(s)
 model.add(Flatten())
 model.add(Dense(128, activation='relu'))
 model.add(Dropout(p=0.25))
 model.add(Dense(1))
+
 model.compile(loss='mse', optimizer='adam')
 model.fit_generator(train_generator,
                     samples_per_epoch=len(train_samples),
