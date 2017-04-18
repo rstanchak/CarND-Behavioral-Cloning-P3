@@ -31,16 +31,16 @@ The goals / steps of this project are the following:
 #### 1. Submission includes all required files and can be used to run the simulator in autonomous mode
 
 My project includes the following files:
-* model.py containing the script to create and train the model
-* drive.py for driving the car in autonomous mode
-* model.h5 containing a trained convolution neural network 
-* video.mp4 containing a video of the final model driving around track 1
-* README.md containing a summary of the results
+* [model.py](model.py) containing the script to create and train the model
+* [drive.py](drive.py) for driving the car in autonomous mode
+* [model.h5](model.h5) containing a trained convolution neural network 
+* [video.mp4](video.mp4) containing a video of the final model driving around track 1
+* README.md containing a summary of the results (this file)
 
 #### 2. Submission includes functional code
 Using the Udacity provided simulator and my drive.py file, the car can be driven autonomously around the track by executing 
 ```sh
-python drive.py model-09.h5
+python drive.py model.h5
 ```
 
 #### 3. Submission code is usable and readable
@@ -61,7 +61,7 @@ Each convolution and fully-connected layer use a RELU activation function to int
 
 #### 2. Attempts to reduce overfitting in the model
 
-In order to prevent overfitting, the model contains dropout layers: one between the conv layer and the fully-connected layer, and one between the hidden layer and the output layer (code lines 109, 111) in order to reduce overfitting (model.py lines TODO).
+In order to prevent overfitting, the model contains a dropout layer between the between the fully connected layer and the output layer (code lines 109, 111) in order to reduce overfitting. 
 
 The model was trained and validated on different data sets to ensure that the model was not overfitting (code line 52). The model was tested by running it through the simulator and ensuring that the vehicle could stay on the track.
 
@@ -94,7 +94,7 @@ The iterative steps, MSE loss, notes are recorded in the table below:
 | 5 | crop top by 64 px and bottom by 22 px|   0.4917 | 0.3236 |
 | 6 | add 8@5x1 conv layer + relu | 0.0116 | 0.0125 | |
 | 7 | add 8@1x5 conv layer + relu | 0.0101 | 0.0108 | |
-| 8 | Add 128-node fully-connected layer + relu + p=0.25 dropout | 0.0103 | 0.0107 | track 1 OK |
+| 8 | Add 128-node fully-connected layer + relu + p=0.25 dropout | 0.0103 | 0.0107 | track 1 OK, track 2 NOT OK |
 | 9 | add p=5 dropout between conv and fully-connected layer | 0.0090 | 0.0109 ||
 
 The other networks implemented are as follows:
